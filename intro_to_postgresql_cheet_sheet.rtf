@@ -28,11 +28,13 @@ Commenting/adding notes that aren't part of the query
 	Group By/Order By & column number reference: Refer to the columns selected by the order they are returned instead of the column itself
 		EXAMPLE: SELECT status, * FROM orders ORDER BY 1 -- status is the first column returned, so this orders by status sac
 	
-	Ordering the data returned
+	ORDER WITH COLUMN NUMBER
 		Order by <column/value>     -- return results ordered by the indicated value. Must use raw column name, not alias
 			By default order by will return ascending, use 'desc' to return descending
 			Nulls: Nulls can be specifically addressed after the rest of the order by statement
 		EXAMPLE: SELECT * FROM orders ORDER BY status NULLS FIRST
+		
+		
 ********************************************************************************************************
 ***************                   Data Types and Casting values
 ********************************************************************************************************

@@ -2,29 +2,40 @@ TO MAKE COMMENTS/NOTES
 Commenting/adding notes that aren't part of the query
 	•	To comment to the end of the current line, use '--'
 	•	To comment between two specific points use '/* ... */' 
-
-Selecting
-	•	Select
-	▪	SELECT * FROM <table>;        -- return all data (columns and rows) in the table
-	•	Aliasing 
-	▪	Select <column> as col_alias from <table> as table_alias;  rename your columns and tables so you don't have to type out the full names  NOTE: columns and tables alias names must start with a letter and cannot start with a number 
-	▪	EX:as SELECT address as addr FROM users usr;
-	•	Limit
-	▪	Limit # -- only return # rows
-	•	Unique records: Distinct and Group by 
-	▪	Group by
-	⁃	Group by <column/value>    -- will group identical rows into a single row. Must use raw column name, not alias
-	▪	Distinct
-	⁃	Distinct <column> -- will only select unique rows of data selected/returned, any duplicate rows are not returned.
-	▪	Group By/Order By & column number reference: Refer to the columns selected by the order they are returned instead of the column itself
-	⁃	Example: SELECT status, * FROM orders ORDER BY 1 -- status is the first column returned, so this orders by status sac
-	•	Ordering the data returned
-	▪	Order by <column/value>     -- return results ordered by the indicated value. Must use raw column name, not alias
-	⁃	By default order by will return ascending, use 'desc' to return descending
-	▪	Nulls: Nulls can be specifically addressed after the rest of the order by statement
-	⁃	Example: SELECT * FROM orders ORDER BY status NULLS FIRST
-
-Data Types and Casting values
+	
+********************************************************************************************************
+******                 SELECTING DATA                                                           *********
+********************************************************************************************************
+	Select
+		SELECT * FROM <table>;        -- return all data (columns and rows) in the table
+		EXMAMPLE: SELECT * FROM users;
+		
+	Aliasing 
+		Select <column> as col_alias from <table> as table_alias; 
+	        rename your columns and tables so you don't have to type out the full names 
+	        	NOTE: columns and tables alias names must start with a letter and cannot start with a number 
+		EXAMPLE:as SELECT address as addr FROM users usr;
+	
+	Limit
+		Limit # -- only return # rows
+	
+	Unique records: Distinct and Group by 
+		Group by
+			Group by <column/value>    -- will group identical rows into a single row. Must use raw column name, not alias
+		Distinct
+			Distinct <column> -- will only select unique rows of data selected/returned, any duplicate rows are not returned.
+	
+	Group By/Order By & column number reference: Refer to the columns selected by the order they are returned instead of the column itself
+		EXAMPLE: SELECT status, * FROM orders ORDER BY 1 -- status is the first column returned, so this orders by status sac
+	
+	Ordering the data returned
+		Order by <column/value>     -- return results ordered by the indicated value. Must use raw column name, not alias
+			By default order by will return ascending, use 'desc' to return descending
+			Nulls: Nulls can be specifically addressed after the rest of the order by statement
+		EXAMPLE: SELECT * FROM orders ORDER BY status NULLS FIRST
+********************************************************************************************************
+***************                   Data Types and Casting values
+********************************************************************************************************
 Sometimes columns 'type' doesn't match what you're evaluating, for this use CAST
 	Note: By default cast will round for you
 	CAST(<column/result> AS <type>)

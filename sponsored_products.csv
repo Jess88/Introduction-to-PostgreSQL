@@ -1,1 +1,100 @@
-ID,partner_name,product_name,product_cost,product_purchase_date,sponsored_user_id1,"""Home and Garden Vendor""","""some product81""",13.59,2/12/18,192,"""Home Products Vendor""","""rand product55""",60.39,3/6/18,753,"""Home Products Vendor""","""the product6""",39.03,1/16/18,594,"""Services Vendor""","""a product33""",32.27,1/19/18,965,"""Home and Garden Vendor""","""rand product40""",55.14,1/27/18,346,"""Home Products Vendor""","""rand product39""",6.83,2/2/18,267,"""Services Vendor""","""the product47""",33.18,1/13/18,888,"""Technology Vendor""","""some product14""",13.29,1/26/18,659,"""Home Products Vendor""","""a product22""",24.77,2/18/18,7510,"""Home and Garden Vendor""","""some product39""",56.89,1/14/18,9611,"""Home and Garden Vendor""","""the product76""",89.49,2/19/18,7512,"""Home and Garden Vendor""","""a product82""",15.52,2/7/18,3913,"""Home and Garden Vendor""","""rand product22""",63.77,1/20/18,7814,"""Services Vendor""","""some product26""",31.54,2/14/18,3015,"""Home Products Vendor""","""a product61""",15.51,1/22/18,3416,"""Home and Garden Vendor""","""a product55""",34.6,3/3/18,2017,"""Home and Garden Vendor""","""some product40""",15.93,1/25/18,5018,"""Home Products Vendor""","""a product73""",71.56,1/20/18,3819,"""Home and Garden Vendor""","""some product89""",72.38,1/18/18,5720,"""Home Products Vendor""","""a product44""",54.79,1/29/18,3021,"""Home and Garden Vendor""","""a product71""",12.16,2/6/18,9422,"""Home Products Vendor""","""the product23""",83.86,3/8/18,1523,"""Services Vendor""","""a product17""",13.95,1/9/18,7024,"""Home Products Vendor""","""a product16""",73.44,3/2/18,2325,"""Home Products Vendor""","""rand product5""",31.6,2/10/18,7626,"""Home Products Vendor""","""the product15""",19.75,2/22/18,6527,"""Home and Garden Vendor""","""the product79""",76.6,3/7/18,8728,"""Technology Vendor""","""some product64""",35.78,1/23/18,8929,"""Home Products Vendor""","""some product67""",54.24,1/1/18,8030,"""Home and Garden Vendor""","""the product7""",16.08,1/8/18,2231,"""Home and Garden Vendor""","""the product64""",70.26,1/25/18,8032,"""Home Products Vendor""","""rand product94""",17.04,1/23/18,5533,"""Technology Vendor""","""rand product3""",45.31,1/29/18,1534,"""Home and Garden Vendor""","""rand product54""",49.1,1/13/18,2435,"""Services Vendor""","""a product26""",47.11,2/2/18,9436,"""Home and Garden Vendor""","""the product60""",61.24,2/18/18,2437,"""Home Products Vendor""","""some product99""",82.47,2/17/18,3138,"""Home Products Vendor""","""the product57""",83.69,3/2/18,3239,"""Technology Vendor""","""some product83""",26.34,2/9/18,3040,"""Home and Garden Vendor""","""some product85""",68.7,3/6/18,5041,"""Technology Vendor""","""some product93""",23.95,1/16/18,4942,"""Technology Vendor""","""some product68""",10.48,2/23/18,7243,"""Home Products Vendor""","""some product24""",30.42,1/9/18,1944,"""Home and Garden Vendor""","""rand product79""",82.78,1/15/18,2345,"""Technology Vendor""","""a product26""",29.48,2/10/18,7246,"""Home Products Vendor""","""rand product29""",55.84,1/5/18,6947,"""Home Products Vendor""","""the product32""",36.19,3/3/18,7848,"""Services Vendor""","""a product28""",37.1,2/22/18,7649,"""Technology Vendor""","""a product29""",24.53,2/26/18,8250,"""Home Products Vendor""","""the product83""",74.95,2/9/18,1851,"""Services Vendor""","""rand product78""",89.56,1/16/18,4852,"""Home and Garden Vendor""","""rand product4""",66.13,3/7/18,8653,"""Services Vendor""","""the product40""",49.48,2/6/18,4154,"""Home and Garden Vendor""","""a product64""",29.11,2/24/18,8855,"""Services Vendor""","""some product60""",53.88,2/22/18,9056,"""Home Products Vendor""","""rand product45""",13.66,1/16/18,8357,"""Home and Garden Vendor""","""some product15""",61.73,1/7/18,4658,"""Technology Vendor""","""the product86""",4.73,1/19/18,3159,"""Services Vendor""","""the product88""",84.42,1/13/18,6760,"""Home Products Vendor""","""the product82""",87.54,2/27/18,7961,"""Home and Garden Vendor""","""a product67""",22.36,2/13/18,8262,"""Technology Vendor""","""rand product64""",12.24,2/8/18,3863,"""Home and Garden Vendor""","""the product26""",61.93,1/11/18,3764,"""Home Products Vendor""","""some product21""",18.59,1/31/18,4565,"""Home Products Vendor""","""the product31""",9.91,2/25/18,6366,"""Home and Garden Vendor""","""some product41""",77.56,1/8/18,3967,"""Services Vendor""","""the product66""",65.36,2/6/18,2368,"""Technology Vendor""","""the product14""",21.65,2/21/18,3969,"""Services Vendor""","""some product73""",16.95,2/14/18,4770,"""Technology Vendor""","""the product9""",41.92,2/20/18,5271,"""Home Products Vendor""","""some product74""",52.83,1/7/18,5972,"""Home and Garden Vendor""","""a product67""",25.31,1/23/18,8173,"""Home and Garden Vendor""","""a product67""",9.76,2/25/18,2474,"""Home Products Vendor""","""a product51""",40.85,2/15/18,9375,"""Services Vendor""","""some product36""",5.62,1/28/18,5776,"""Technology Vendor""","""some product65""",6.91,2/8/18,6177,"""Services Vendor""","""the product7""",48.06,2/22/18,7678,"""Services Vendor""","""rand product34""",69.6,2/9/18,8079,"""Technology Vendor""","""a product16""",6.63,1/27/18,8480,"""Home and Garden Vendor""","""rand product29""",23.14,2/19/18,3481,"""Home and Garden Vendor""","""a product43""",55.76,2/26/18,6582,"""Services Vendor""","""a product30""",49.5,2/24/18,8483,"""Technology Vendor""","""the product65""",46.87,3/1/18,6584,"""Home Products Vendor""","""the product27""",18.44,1/2/18,3485,"""Technology Vendor""","""a product45""",57.21,1/5/18,2186,"""Services Vendor""","""rand product50""",41.82,2/11/18,8287,"""Services Vendor""","""some product79""",47.78,3/4/18,6688,"""Home Products Vendor""","""the product85""",43.64,2/14/18,1989,"""Services Vendor""","""rand product41""",51.84,2/2/18,1790,"""Technology Vendor""","""the product20""",84.44,2/10/18,1791,"""Home and Garden Vendor""","""the product78""",14.96,1/15/18,8092,"""Technology Vendor""","""the product9""",10.85,3/6/18,7293,"""Home Products Vendor""","""the product79""",28.04,2/5/18,4394,"""Home and Garden Vendor""","""the product26""",13.67,2/23/18,5195,"""Home and Garden Vendor""","""the product54""",30.65,2/25/18,8196,"""Technology Vendor""","""some product78""",58.88,2/1/18,2297,"""Home Products Vendor""","""the product11""",6.29,1/23/18,2098,"""Services Vendor""","""some product13""",10.05,3/1/18,4999,"""Home and Garden Vendor""","""a product12""",23.64,1/12/18,80
+partner_name,product_name,product_cost,product_purchase_date,sponsored_user_id
+Home Products Vendor,rand product79,81.77,2/1/18,58
+Technology Vendor,a product70,67.64,1/26/18,98
+Services Vendor,some product11,41.23,1/22/18,19
+Home and Garden Vendor,the product26,87.75,2/25/18,55
+Technology Vendor,some product12,21.96,2/11/18,97
+Services Vendor,some product4,10.68,1/20/18,52
+Home and Garden Vendor,the product88,21.63,2/14/18,42
+Home and Garden Vendor,the product55,49.69,2/5/18,97
+Technology Vendor,the product100,14.96,1/29/18,76
+Home and Garden Vendor,rand product38,29.75,2/20/18,42
+Services Vendor,rand product17,83.23,2/8/18,76
+Home and Garden Vendor,a product74,17.54,2/15/18,23
+Services Vendor,the product8,40.28,1/29/18,30
+Services Vendor,the product41,10.26,3/6/18,70
+Home Products Vendor,rand product86,4.5,2/13/18,30
+Home and Garden Vendor,some product69,86.7,1/22/18,28
+Technology Vendor,a product95,55.55,1/30/18,79
+Technology Vendor,some product73,31.08,2/18/18,94
+Services Vendor,rand product35,46.98,1/9/18,68
+Home and Garden Vendor,the product28,33.06,1/12/18,69
+Technology Vendor,rand product47,9.19,2/8/18,99
+Home Products Vendor,a product50,46.35,2/25/18,78
+Technology Vendor,a product35,55.13,1/8/18,87
+Home and Garden Vendor,rand product39,58.21,1/1/18,86
+Technology Vendor,the product23,6.32,2/8/18,55
+Home Products Vendor,a product97,29.03,3/9/18,17
+Services Vendor,rand product29,87.86,2/18/18,63
+Home Products Vendor,rand product8,18.32,2/5/18,28
+Technology Vendor,some product32,9.91,2/17/18,83
+Home and Garden Vendor,some product49,4.37,2/7/18,32
+Home and Garden Vendor,a product55,46.66,2/25/18,66
+Home and Garden Vendor,the product95,8.52,2/3/18,60
+Technology Vendor,the product50,27.35,2/3/18,53
+Home and Garden Vendor,a product20,65.97,1/19/18,32
+Services Vendor,some product37,38.22,2/25/18,49
+Technology Vendor,the product76,84.71,2/12/18,71
+Services Vendor,the product62,41.34,1/16/18,49
+Technology Vendor,some product57,54.33,2/6/18,90
+Home Products Vendor,a product84,80.28,1/5/18,57
+Home Products Vendor,rand product50,35.42,3/8/18,100
+Home Products Vendor,a product77,63.82,2/4/18,67
+Technology Vendor,the product83,31.2,2/9/18,54
+Technology Vendor,some product79,25.99,1/6/18,77
+Services Vendor,rand product84,63.82,1/6/18,75
+Home and Garden Vendor,a product95,61.8,2/5/18,94
+Home and Garden Vendor,rand product52,62.62,1/15/18,17
+Technology Vendor,the product64,51.09,2/15/18,97
+Home Products Vendor,rand product4,44.67,2/21/18,58
+Technology Vendor,some product60,45.03,1/11/18,30
+Home Products Vendor,the product39,80.03,1/14/18,87
+Services Vendor,rand product35,25.09,1/25/18,40
+Home and Garden Vendor,rand product18,23.92,1/31/18,43
+Services Vendor,some product5,85.71,2/12/18,35
+Services Vendor,rand product28,87.63,2/9/18,52
+Home and Garden Vendor,a product45,77.3,3/3/18,75
+Services Vendor,the product20,88.32,1/27/18,47
+Services Vendor,rand product50,25.49,2/21/18,82
+Technology Vendor,a product77,66.03,2/27/18,78
+Home and Garden Vendor,rand product16,27.41,2/23/18,63
+Home Products Vendor,a product84,87.54,1/5/18,45
+Technology Vendor,a product25,20.96,1/5/18,15
+Technology Vendor,rand product4,79.77,2/5/18,51
+Home Products Vendor,some product81,10.47,3/3/18,100
+Home Products Vendor,a product72,87.25,2/9/18,60
+Technology Vendor,rand product27,76.47,1/17/18,69
+Technology Vendor,the product76,40.86,1/15/18,76
+Services Vendor,rand product67,82.56,2/28/18,33
+Technology Vendor,rand product56,81.85,1/12/18,79
+Services Vendor,the product9,35.8,1/8/18,17
+Technology Vendor,some product44,66.9,1/9/18,38
+Services Vendor,rand product29,83.58,3/4/18,84
+Home Products Vendor,rand product46,13.77,3/8/18,43
+Home and Garden Vendor,the product93,27.53,1/12/18,97
+Technology Vendor,rand product51,78.1,3/3/18,91
+Home and Garden Vendor,the product68,29.57,1/24/18,65
+Home and Garden Vendor,some product74,69.5,2/17/18,87
+Home and Garden Vendor,rand product47,59.43,1/31/18,68
+Home Products Vendor,a product9,27.34,1/30/18,60
+Home Products Vendor,a product79,87.62,2/27/18,36
+Home and Garden Vendor,rand product49,14.12,3/4/18,31
+Home Products Vendor,rand product57,17.84,2/7/18,25
+Technology Vendor,the product38,10.06,2/14/18,15
+Home and Garden Vendor,the product29,54.37,2/13/18,47
+Services Vendor,rand product78,47.41,2/24/18,49
+Home Products Vendor,a product19,30.77,1/31/18,32
+Technology Vendor,rand product57,82.98,1/15/18,37
+Technology Vendor,some product67,45.3,1/21/18,56
+Home and Garden Vendor,the product73,10.51,2/16/18,48
+Home Products Vendor,the product34,85.25,1/23/18,37
+Home Products Vendor,a product23,82.53,1/14/18,76
+Home Products Vendor,the product91,15.71,2/17/18,97
+Home Products Vendor,a product98,88.54,2/22/18,81
+Technology Vendor,some product66,29.62,1/27/18,76
+Home Products Vendor,some product3,79,1/19/18,57
+Services Vendor,the product79,52.82,2/5/18,22
+Home and Garden Vendor,a product1,78.48,2/4/18,58
+Technology Vendor,rand product26,13.17,2/16/18,84
+Technology Vendor,some product13,89.09,1/31/18,51
+Technology Vendor,rand product71,7.17,2/12/18,30

@@ -12,6 +12,7 @@ Commenting/adding notes that aren't part of the query
 	•	To comment to the end of the current line, use '--'
 	•	To comment between two specific points use '/* ... */' 
 	
+	
 ********************************************************************************************************
 ********                                        Data Types                                      ********
 ********************************************************************************************************
@@ -35,13 +36,14 @@ Types:
 	•	set or collection of values that all share same data type: array
 	⁃	Ex: collect of whole numbers would be an array of integers where the type for all values in the collection (array) 
 	            are all integers
-
+		    
 
 ********************************************************************************************************
 ********                                 Denormalized vs. Normalized                            ********
 ********************************************************************************************************
 	Denormalized - Generally storing all relevant information in each table/column fully, even if is considered redundant
 	Normalized - Efficiently organizing data so that shared values are defined in 1 location
+	
 	
 ********************************************************************************************************
 ********                                     Selecting Data                                     ********
@@ -65,7 +67,6 @@ Types:
 		Format: Limit # -- only return # rows
 		Example: SELECT * FROM products limit 10;
 	
-
 	ORDER BY
 		Format: Order by <column/value>     -- return results ordered by the indicated value. Must use raw column name, not alias
 			By default order by will return ascending, use 'desc' to return descending
@@ -85,6 +86,7 @@ Types:
 					SELECT * FROM orders 
 					ORDER BY status NULLS FIRST
 		
+		
 ********************************************************************************************************
 ********                                       Casting values                                   ********
 ********************************************************************************************************
@@ -100,6 +102,7 @@ Sometimes columns 'type' doesn't match what you're evaluating, for this use CAST
 		SELECT CAST(shipping_total AS int) as int_total, 
 		shippingTotal::INTEGER as int_v2_total
 		FROM orders;
+	
 	
 ********************************************************************************************************
 ********                                Unique Records & Grouping                               ********
@@ -117,6 +120,7 @@ Sometimes columns 'type' doesn't match what you're evaluating, for this use CAST
 		Example:
 			SELECT product_type_id FROM products 
 			GROUP BY 1; -- will group by product_type_id since it is the 1st column being selecte
+	
 	
 ********************************************************************************************************
 ********                                     Aggregate functions                                ********
@@ -152,6 +156,16 @@ Aggregate functions
 		MIN(price) as least_cost,
 		MAX(price) as most_cost
 		FROM products; 
+		
+		Group by example: When you select non-aggregate columns/values - Get the results by user_id
+		Select AVG(price) as avg_price,
+		SUM(price) as total_cost,
+		COUNT(price) as total_products,
+		MIN(price) as least_cost,
+		MAX(price) as most_cost,
+		user_id
+		FROM products
+		GROUP BY user_id;
 
 
 ********************************************************************************************************
@@ -159,13 +173,21 @@ Aggregate functions
 ********************************************************************************************************
 	EXTRACT(Value From <date/timestamp>)
       	Examples:
-		SELECT
-		EXTRACT(year from created_at) as year,
-		EXTRACT(month from created_at) as month,
-		EXTRACT(week from created_at) as week,
-		EXTRACT(day from created_at) as day
-		FROM orders;
-
+		Select id,
+		EXTRACT(DAY FROM created_at),
+		EXTRACT(WEEK FROM created_at),
+		EXTRACT(MONTH FROM created_at),
+		EXTRACT(YEAR FROM created_at)
+		FROM users; 
+		
+		Date Functions with aggregate (count) - How many users were created in each week, include month and year in results.
+		SELECT COUNT(id), 
+		EXTRACT(WEEK FROM created_at) as week,
+		EXTRACT(MONTH FROM created_at) as month, 
+		EXTRACT(YEAR FROM created_at) as year
+		FROM users
+		GROUP BY year, month, week
+		ORDER BY year, month, week; 
 
 
 ********************************************************************************************************
@@ -183,6 +205,11 @@ Aggregate functions
 		AND (<true/false evaluation3> OR <true/false evaluation4> )
 	Example: 
 		SELECT * FROM orders
+		WHERE shipping_cost > 10
+		AND created_at > '2018-01-01';
+		
+		Combined AND and OR
+		SELECT * FROM orders
 		WHERE status IS NOT NULL
 		AND created_at > '2018-01-01'
 		AND (order_total > 10.0 OR shipping_total > 10.0) -- grab any orders with either order or shipping total over 10
@@ -191,14 +218,31 @@ Aggregate functions
 	Example:
 		SELECT * from orders where status IS NULL
 		SELECT * from orders where status in ('ready to ship', 'order confirmed') OR status IS NULL
+		
+	IN -- use to select data that can be any value in a list
+	Example: 
+		  --SELECT * FROM products
+		  --WHERE product_type_id = 1
+		  --OR product_type_id = 2;
+		--The above is the same as below
+		SELECT * FROM products
+		WHERE product_type_id IN (1, 2);
 
 
 ********************************************************************************************************
 ********                                        Text Filtering                                  ********
 ********************************************************************************************************
+	Exact match (include upper/lower case matched) use '='
+	Match with wildcards (any text for part of the string) use like, or ilike to be case insensitive
+	Advanced match or match anywhere in text, use '~', '~*' to be case insensitive 
+	
+	escape a single quote so it can be searched by using two single quotes
+	Example: 
+		SELECT * FROM product_types WHERE status = 'girl''s clothing';
+	
 	like and ilike - match a string using '%' to identify where any set of characters/words is acceptable
-	like -- matches the case exactly
-	ilike -- will ignore case when matching
+		like -- matches the case exactly
+		ilike -- will ignore case when matching
 	Examples: (return same results/rows)
 		SELECT * from product_types WHERE name like '%clothing' 
 		SELECT * from product_types WHERE name ilike '%cLoThInG'
@@ -211,23 +255,81 @@ Aggregate functions
 		SELECT * from product_types WHERE name ~* 'cLoThInG'
 
 
+
+********************************************************************************************************
+********                                 Dealing with Nulls                                     ********
+********************************************************************************************************
+	NOTE: SELECT and WHERE will each treat nulls independantly. 
+		If you only address nulls in the filter, nulls will still be returned in results. 
+		If you only address nulls in the select, the filter won't have that context
+
+	Filtering with Nulls - If a value being filtered is null, the results will ONLY be included when specified to include nulls
+	Example:
+		SELECT * from orders 
+		WHERE status IS NULL
+		
+		SELECT * from orders 
+		WHERE status in ('ready to ship', 'order confirmed') 
+		OR status IS NULL
+		
+		SELECT * FROM orders 
+		WHERE status not ilike '%complete%'  
+		OR status IS NULL
+		
+	Coalesce - use coalesce to convert null values to a specific result. Can be used in select and/or where
+		Format: coalesce(<colum>,<result if column value is null>) 
+	Examples: 
+		SELECT * FROM orders 
+		WHERE coalesce(status,'just made') not ilike '%complete%';
+		
+		SELECT coalesce(status, 'Not Started'), *
+		FROM orders
+		ORDER BY status NULLS first;
+		
+		SELECT coalesce(status, 'Not Started'), *
+		FROM orders
+		WHERE coalesce(status,'just made') not ilike '%complete%'
+		ORDER BY status NULLS first;
+		
+		
 ********************************************************************************************************
 ********                                    Date Filtering                                      ********
 ********************************************************************************************************
 	>, <, =  -- use less than, greater than and equal to filter by date strings
-		Ex: get any data from 2017
-			Select * from orders where created_at >= '2017-01-01' and created_at < '2018-01-01'
+		Ex: What orders were created from January through the end of March of this year?
+			SELECT * FROM orders 
+			WHERE created_at >= '2018-01-01'
+			AND created_at < '2018-04-01'
+
 	Between -- use Between to be less redundant with dates
-		EX: Select * from orders where created_at BETWEEN '2017-01-01' and '2018-01-01'
+		EX: What orders were created from January through the end of March of this year?
+			SELECT * FROM orders
+			WHERE created_at BETWEEN '2018-01-01'
+			                     AND '2018-04-01'
+	
+	Extract -- use to filter for exact values being required
+		EX: What orders were created from January through the end of March of this year?
+			SELECT * FROM orders
+			WHERE EXTRACT( year from created_at) = 2018 
+			  AND EXTRACT(month from created_at) IN (1,2,3)
+
 	
 	now()  -- return the current timestamp of the database server
 	Interval -- Manipulate dates by adding or subtracting intervals of dates
 		Ex: interval '1 month', interval 2 days', interval '4 weeks', interval '1 year'
 		
-	Examples:
+	Examples:What orders were created in…
+		the last month?   SELECT * FROM orders 
+				  WHERE created_at >= now() - interval '1 month'
+				  
+		the last year?    SELECT * FROM orders
+			 	  WHERE created_at >= now() - interval '1 year'
+				  
+		the last 45 days? SELECT * FROM orders
+				  WHERE created_at >= now() - interval '45 days'
+		
 		SELECT * FROM orders 
 		WHERE created_at >= (now() - interval '1 month')
-
 
 
 ****************************************************************************************************************************************
@@ -247,7 +349,7 @@ Example:
 	SELECT product_id from cart_products
 
 Intersect - return the unique set of rows in the primary results AND in the secondary results
-Example:  get products that are currently in a cart and have been ordered in the past
+Example:  get products that are currently in a cart and have been ordered 
 	SELECT product_id  from order_products
 	INTERSECT
 	SELECT product_id from cart_products

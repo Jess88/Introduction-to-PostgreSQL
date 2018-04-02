@@ -12,42 +12,9 @@ Commenting/adding notes that aren't part of the query
 	•	To comment to the end of the current line, use '--'
 	•	To comment between two specific points use '/* ... */' 
 	
-	
 ********************************************************************************************************
-********                                     Selecting Data                                     ********
+********                                        Data Types                                      ********
 ********************************************************************************************************
-	Select
-		SELECT * FROM <table>;        -- return all data (columns and rows) in the table
-		EXAMPLE: SELECT * FROM users;
-		
-	Aliasing 
-		Select <column> as col_alias from <table> as table_alias; 
-	        rename your columns and tables so you don't have to type out the full names 
-	        	NOTE: columns and tables alias names must start with a letter and cannot start with a number 
-		EXAMPLE:as SELECT address as addr FROM users usr;
-	
-	Limit
-		Limit # -- only return # rows
-	
-
-	ORDER WITH COLUMN NUMBER
-		Order by <column/value>     -- return results ordered by the indicated value. Must use raw column name, not alias
-			By default order by will return ascending, use 'desc' to return descending
-			Nulls: Nulls can be specifically addressed after the rest of the order by statement
-		EXAMPLE: SELECT * FROM orders ORDER BY status NULLS FIRST
-		
-		
-********************************************************************************************************
-********                               Data Types and Casting values                            ********
-********************************************************************************************************
-Sometimes columns 'type' doesn't match what you're evaluating, for this use CAST
-	Note: By default cast will round for you
-	CAST(<column/result> AS <type>)
-	<column/result>::<type>
-	Examples
-		Select CAST(order_total as int), order_total from orders;
-		select order_total::INT, order_total from orders;
-	
 Types: 
 	numbers: 
 	⁃	whole: integer
@@ -71,23 +38,92 @@ Types:
 
 
 ********************************************************************************************************
+********                                 Denormalized vs. Normalized                            ********
+********************************************************************************************************
+	Denormalized - Generally storing all relevant information in each table/column fully, even if is considered redundant
+	Normalized - Efficiently organizing data so that shared values are defined in 1 location
+	
+********************************************************************************************************
+********                                     Selecting Data                                     ********
+********************************************************************************************************
+	Select
+		SELECT * FROM <table>;        -- return all data (columns and rows) in the table
+		Examples: SELECT * FROM users;
+		          SELECT * FROM products;
+		
+	Aliasing 
+		Format: SELECT <column> AS col_alias FROM <table> AS table_alias; 
+	        	rename your columns and tables so you don't have to type out the full names 
+	        	NOTE: columns and tables alias names must start with a letter and cannot start with a number 
+		Example: SELECT address as addr FROM users u;
+	
+
+********************************************************************************************************
+********                                   Limit and Order By                                   ********
+********************************************************************************************************	
+	Limit
+		Format: Limit # -- only return # rows
+		Example: SELECT * FROM products limit 10;
+	
+
+	ORDER BY
+		Format: Order by <column/value>     -- return results ordered by the indicated value. Must use raw column name, not alias
+			By default order by will return ascending, use 'desc' to return descending
+				Example: 
+					SELECT * FROM products
+					ORDER BY price desc;
+			
+			By Column Number: You can refer the column number for the data you want to order on, 
+					  based on the order the columns are selected
+				Example:
+					SELECT id, price FROM products 
+					ORDER BY 2 -- will order by price since price is the 2nd column being selected
+					LIMIT 1;
+					
+			Nulls: Nulls can be specifically addressed after the rest of the order by statement
+				Example: 
+					SELECT * FROM orders 
+					ORDER BY status NULLS FIRST
+		
+********************************************************************************************************
+********                                       Casting values                                   ********
+********************************************************************************************************
+Sometimes columns 'type' doesn't match what you're evaluating, for this use CAST
+	Format: CAST(<column/result> AS <type>)
+	Format: <column/result>::<type>
+		Note: By default cast will round for you
+	Examples:
+		SELECT CAST(order_total as int), order_total from orders;
+		
+		SELECT order_total::INT, order_total from orders;
+		
+		SELECT CAST(shipping_total AS int) as int_total, 
+		shippingTotal::INTEGER as int_v2_total
+		FROM orders;
+	
+********************************************************************************************************
 ********                                Unique Records & Grouping                               ********
 ********************************************************************************************************
 	Unique records: Distinct and Group by 
 		Format - Group by: Group by <column/value>    -- will group identical rows into a single row. Must use raw column name, not alias
 		Format - Distinct: Distinct <column> -- will only select unique rows of data selected/returned, any duplicate rows are not returned.
+	Examples: 
+		SELECT product_type_id FROM products
+		GROUP BY product_type_id;
+		
+		SELECT DISTINCT product_type_id FROM products;
 	
-	Group By/Order By & column number reference: Refer to the columns selected by the order they are returned instead of the column itself
-		EX: SELECT status, * 
-		    FROM orders 
-		    ORDER BY 1 -- status is the first column returned, so this orders by status sac
+	Group By & column number reference: Refer to the columns selected by the order they are returned instead of the column itself
+		Example:
+			SELECT product_type_id FROM products 
+			GROUP BY 1; -- will group by product_type_id since it is the 1st column being selecte
 	
 ********************************************************************************************************
 ********                                     Aggregate functions                                ********
 ********************************************************************************************************
 Aggregate functions 
-If you select any columns/values that are not aggregate functions, 
-   these will require a 'group by' clause to group the results and be able to perform the function results.
+	Note: If you select any columns/values that are not aggregate functions, 
+	   these will require a 'group by' clause to group the results and be able to perform the function results.
 
 	Average: returns average of the total of the column or the calculation.  
 		Format: AVG(<column/calculation>) 
@@ -110,7 +146,12 @@ If you select any columns/values that are not aggregate functions,
 		Example
 		
 	Examples:
-		Select max(order_total) as max_order, min(order_total) as min_order from orders;
+		Select AVG(price) as avg_price,
+		SUM(price) as total_cost,
+		COUNT(price) as total_products,
+		MIN(price) as least_cost,
+		MAX(price) as most_cost
+		FROM products; 
 
 
 ********************************************************************************************************

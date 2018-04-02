@@ -380,7 +380,18 @@ Joining  - There are two ways to give join the clause: using ON, and using WHERE
 		WHERE pt.id = p.product_type_id    -- define that we want results aligned on product_type for the product
 
 	Inner Join - return rows from both tables where the joined values match on the clause given, JOIN without other indicators is by default an Inner join
-	Example: Identical to before
+	Note: join will by default be an INNER join
+	Example: 
+		SELECT distinct order_products.product_id 
+		FROM order_products
+		JOIN cart_products ON cart_products.product_id = order_products.product_id
+		
+		--Identical to above
+		SELECT distinct order_products.product_id 
+		FROM order_products
+		INNER JOIN cart_products on cart_products.product_id = order_products.product_id
+		
+		--additional example
 		SELECT * FROM products p
 		INNER JOIN product_types pt ON pt.id = p.product_type_id   -- define that we want results aligned on product_type for the product
 
@@ -396,6 +407,20 @@ Joining  - There are two ways to give join the clause: using ON, and using WHERE
 		Example: 
 			SELECT * FROM orders o
 			FULL OUTER JOIN users on o.user_id = u.id
+			
+			
+********************************************************************************************************
+********                                    Table Aliasing                                      ********
+********************************************************************************************************
+	SELECT distinct order_products.product_id 
+	FROM order_products
+	JOIN cart_products on cart_products.product_id = order_products.product_id
+	
+	-- equivalent to above, refer to order_products as op, cart_products as cp
+	SELECT op.product_id 
+	FROM order_products op
+	JOIN cart_products cp on cp.product_id = op.product_id
+
 	
 ********************************************************************************************************
 ********                                    Table Creation                                      ********
@@ -409,14 +434,20 @@ Create table based on a query
 		CREATE TABLE addresses AS SELECT address FROM users;
 
 Create Table 
+	Format: CREATE TABLE <tablename> (<col name> <col type>, 
+					  <col name 2> <col type 2>,... )
+	
 	CREATE TABLE special_partner_products
-	( id integer PRIMARY KEY,
-	  partner_name text,
- 	 product_name text, 
- 	 product_cost float,
- 	 product_purchase_date date,
- 	 sponsored_user_id integer
+	(id integer,
+	partner_name text,
+	product_name text,
+	product_cost decimal,
+	product_purchase_date date,
+	sponsored_user_id integer
 	);
+	
+	select * from special_partner_products;
+
 
 
 

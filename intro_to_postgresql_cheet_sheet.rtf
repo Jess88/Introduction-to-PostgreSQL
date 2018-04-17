@@ -100,7 +100,7 @@ Sometimes columns 'type' doesn't match what you're evaluating, for this use CAST
 		SELECT order_total::INT, order_total from orders;
 		
 		SELECT CAST(shipping_total AS int) as int_total, 
-		shippingTotal::INTEGER as int_v2_total
+		shipping_total::INTEGER as int_v2_total
 		FROM orders;
 	
 	

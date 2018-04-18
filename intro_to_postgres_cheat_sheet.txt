@@ -448,6 +448,3 @@ Create Table
 	
 	select * from special_partner_products;
 
-
-
-

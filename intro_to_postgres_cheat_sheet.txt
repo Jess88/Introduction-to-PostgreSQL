@@ -1,0 +1,450 @@
+
+****************************************************************************************************************************************
+****************************************************************************************************************************************
+************************                                      DAY 1                                             ************************
+****************************************************************************************************************************************
+****************************************************************************************************************************************
+
+********************************************************************************************************
+********                                     Comments/Notes                                     ********
+********************************************************************************************************
+Commenting/adding notes that aren't part of the query
+	To comment to the end of the current line, use '--'
+	To comment between two specific points use '/* ... */' 
+	
+	
+********************************************************************************************************
+********                                        Data Types                                      ********
+********************************************************************************************************
+Types: 
+	numbers: 
+	 	whole: integer
+	 	decimal: float
+	 	Decimal with limited significant values: numeric
+	
+	text: text
+	 	Text with maximum size set: varchar(length)
+	
+	true/false value:  boolean
+	
+	date objects: 
+	 	calendar date: date
+	 	calendar date with specific time: timestamp
+	 	Calendar date with specific time and timezone:  timestamp without timezone
+	
+	specific storage of key-value pairs: JSON
+	 	set or collection of values that all share same data type: array
+	 	Ex: collect of whole numbers would be an array of integers where the type for all values in the collection (array) 
+	            are all integers
+		    
+
+********************************************************************************************************
+********                                 Denormalized vs. Normalized                            ********
+********************************************************************************************************
+	Denormalized - Generally storing all relevant information in each table/column fully, even if is considered redundant
+	Normalized - Efficiently organizing data so that shared values are defined in 1 location
+	
+	
+********************************************************************************************************
+********                                     Selecting Data                                     ********
+********************************************************************************************************
+	Select
+		SELECT * FROM <table>;        -- return all data (columns and rows) in the table
+		Examples: SELECT * FROM users;
+		          SELECT * FROM products;
+		
+	Aliasing 
+		Format: SELECT <column> AS col_alias FROM <table> AS table_alias; 
+	        	rename your columns and tables so you don't have to type out the full names 
+	        	NOTE: columns and tables alias names must start with a letter and cannot start with a number 
+		Example: SELECT address as addr FROM users u;
+	
+
+********************************************************************************************************
+********                                   Limit and Order By                                   ********
+********************************************************************************************************	
+	Limit
+		Format: Limit # -- only return # rows
+		Example: SELECT * FROM products limit 10;
+	
+	ORDER BY
+		Format: Order by <column/value>     -- return results ordered by the indicated value. Must use raw column name, not alias
+			By default order by will return ascending, use 'desc' to return descending
+				Example: 
+					SELECT * FROM products
+					ORDER BY price desc;
+			
+			By Column Number: You can refer the column number for the data you want to order on, 
+					  based on the order the columns are selected
+				Example:
+					SELECT id, price FROM products 
+					ORDER BY 2 -- will order by price since price is the 2nd column being selected
+					LIMIT 1;
+					
+			Nulls: Nulls can be specifically addressed after the rest of the order by statement
+				Example: 
+					SELECT * FROM orders 
+					ORDER BY status NULLS FIRST
+		
+		
+********************************************************************************************************
+********                                       Casting values                                   ********
+********************************************************************************************************
+Sometimes columns 'type' doesn't match what you're evaluating, for this use CAST
+	Format: CAST(<column/result> AS <type>)
+	Format: <column/result>::<type>
+		Note: By default cast will round for you
+	Examples:
+		SELECT CAST(order_total as int), order_total from orders;
+		
+		SELECT order_total::INT, order_total from orders;
+		
+		SELECT CAST(shipping_total AS int) as int_total, 
+		shipping_total::INTEGER as int_v2_total
+		FROM orders;
+	
+	
+********************************************************************************************************
+********                                Unique Records & Grouping                               ********
+********************************************************************************************************
+	Unique records: Distinct and Group by 
+		Format - Group by: Group by <column/value>    -- will group identical rows into a single row. Must use raw column name, not alias
+		Format - Distinct: Distinct <column> -- will only select unique rows of data selected/returned, any duplicate rows are not returned.
+	Examples: 
+		SELECT product_type_id FROM products
+		GROUP BY product_type_id;
+		
+		SELECT DISTINCT product_type_id FROM products;
+	
+	Group By & column number reference: Refer to the columns selected by the order they are returned instead of the column itself
+		Example:
+			SELECT product_type_id FROM products 
+			GROUP BY 1; -- will group by product_type_id since it is the 1st column being selecte
+	
+	
+********************************************************************************************************
+********                                     Aggregate functions                                ********
+********************************************************************************************************
+Aggregate functions 
+	Note: If you select any columns/values that are not aggregate functions, 
+	   these will require a 'group by' clause to group the results and be able to perform the function results.
+
+	Average: returns average of the total of the column or the calculation.  
+		Format: AVG(<column/calculation>) 
+		note: null values are not included in denominator 
+		Example: SELECT avg(order_total) FROM orders;
+	
+	Addition: returns the sum of the total of the column or calculation
+		Format: SUM(<column/calculation>)
+		   non-aggregate function to get by row addition: <column> + <column>  
+				-- Note: if either column value is null, the result will be null
+		Example: 
+		
+	Count: returns the total number of rows where the column or value is not null
+		Format: COUNT(<column/value>)
+		COUNT(DISTINCT <column/value>) -- Will only count unique values of the column
+		Example: 
+		
+	Minimum and Maximum: returns the minimum or maximum value of the rows for that column/calculation
+		Format: MAX(<column/value>), MIN(<column/value>)
+		Example
+		
+	Examples:
+		Select AVG(price) as avg_price,
+		SUM(price) as total_cost,
+		COUNT(price) as total_products,
+		MIN(price) as least_cost,
+		MAX(price) as most_cost
+		FROM products; 
+		
+		Group by example: When you select non-aggregate columns/values - Get the results by user_id
+		Select AVG(price) as avg_price,
+		SUM(price) as total_cost,
+		COUNT(price) as total_products,
+		MIN(price) as least_cost,
+		MAX(price) as most_cost,
+		user_id
+		FROM products
+		GROUP BY user_id;
+
+
+********************************************************************************************************
+********                                    Date Select Functions                               ********
+********************************************************************************************************
+	EXTRACT(Value From <date/timestamp>)
+      	Examples:
+		Select id,
+		EXTRACT(DAY FROM created_at),
+		EXTRACT(WEEK FROM created_at),
+		EXTRACT(MONTH FROM created_at),
+		EXTRACT(YEAR FROM created_at)
+		FROM users; 
+		
+		Date Functions with aggregate (count) - How many users were created in each week, include month and year in results.
+		SELECT COUNT(id), 
+		EXTRACT(WEEK FROM created_at) as week,
+		EXTRACT(MONTH FROM created_at) as month, 
+		EXTRACT(YEAR FROM created_at) as year
+		FROM users
+		GROUP BY year, month, week
+		ORDER BY year, month, week; 
+
+
+********************************************************************************************************
+********                                        Filtering                                       ********
+********************************************************************************************************
+	Filter: Requires using 'WHERE' 
+		Format: WHERE <true/false evaluation/result> 
+
+	>, <, =  -- use less than, greater than and equal to filter numbers
+	!= , <>   -- use this for “not equal” 
+
+	and/or: Add additional clauses to your filter to either further restrict or expand the results
+		WHERE <true/false evaluation1> 
+		AND <true/false evaluation2> 
+		AND (<true/false evaluation3> OR <true/false evaluation4> )
+	Example: 
+		SELECT * FROM orders
+		WHERE shipping_cost > 10
+		AND created_at > '2018-01-01';
+		
+		Combined AND and OR
+		SELECT * FROM orders
+		WHERE status IS NOT NULL
+		AND created_at > '2018-01-01'
+		AND (order_total > 10.0 OR shipping_total > 10.0) -- grab any orders with either order or shipping total over 10
+
+	Nulls note: If a value being evaluated is null, the results will ONLY be included when specified to include nulls
+	Example:
+		SELECT * from orders where status IS NULL
+		SELECT * from orders where status in ('ready to ship', 'order confirmed') OR status IS NULL
+		
+	IN -- use to select data that can be any value in a list
+	Example: 
+		  --SELECT * FROM products
+		  --WHERE product_type_id = 1
+		  --OR product_type_id = 2;
+		--The above is the same as below
+		SELECT * FROM products
+		WHERE product_type_id IN (1, 2);
+
+
+********************************************************************************************************
+********                                        Text Filtering                                  ********
+********************************************************************************************************
+	Exact match (include upper/lower case matched) use '='
+	Match with wildcards (any text for part of the string) use like, or ilike to be case insensitive
+	Advanced match or match anywhere in text, use '~', '~*' to be case insensitive 
+	
+	escape a single quote so it can be searched by using two single quotes
+	Example: 
+		SELECT * FROM product_types WHERE name = 'girl''s clothing';
+	
+	like and ilike - match a string using '%' to identify where any set of characters/words is acceptable
+		like -- matches the case exactly
+		ilike -- will ignore case when matching
+	Examples: (return same results/rows)
+		SELECT * from product_types WHERE name like '%clothing' 
+		SELECT * from product_types WHERE name ilike '%cLoThInG'
+
+	~ and ~* -- match the text anywhere in the column/value
+		~             -- matches case exactly
+		~*           -- will ignore case when matching
+	Examples: (results will be equivalent to the (i)like statements above)
+		SELECT * from product_types WHERE name ~ 'clothing' 
+		SELECT * from product_types WHERE name ~* 'cLoThInG'
+
+
+
+********************************************************************************************************
+********                                 Dealing with Nulls                                     ********
+********************************************************************************************************
+	NOTE: SELECT and WHERE will each treat nulls independantly. 
+		If you only address nulls in the filter, nulls will still be returned in results. 
+		If you only address nulls in the select, the filter won't have that context
+
+	Filtering with Nulls - If a value being filtered is null, the results will ONLY be included when specified to include nulls
+	Example:
+		SELECT * from orders 
+		WHERE status IS NULL
+		
+		SELECT * from orders 
+		WHERE status in ('ready to ship', 'order confirmed') 
+		OR status IS NULL
+		
+		SELECT * FROM orders 
+		WHERE status not ilike '%complete%'  
+		OR status IS NULL
+		
+	Coalesce - use coalesce to convert null values to a specific result. Can be used in select and/or where
+		Format: coalesce(<colum>,<result if column value is null>) 
+	Examples: 
+		SELECT * FROM orders 
+		WHERE coalesce(status,'just made') not ilike '%complete%';
+		
+		SELECT coalesce(status, 'Not Started'), *
+		FROM orders
+		ORDER BY status NULLS first;
+		
+		SELECT coalesce(status, 'Not Started'), *
+		FROM orders
+		WHERE coalesce(status,'just made') not ilike '%complete%'
+		ORDER BY status NULLS first;
+		
+		
+********************************************************************************************************
+********                                    Date Filtering                                      ********
+********************************************************************************************************
+	>, <, =  -- use less than, greater than and equal to filter by date strings
+		Ex: What orders were created from January through the end of March of this year?
+			SELECT * FROM orders 
+			WHERE created_at >= '2018-01-01'
+			AND created_at < '2018-04-01'
+
+	Between -- use Between to be less redundant with dates
+		EX: What orders were created from January through the end of March of this year?
+			SELECT * FROM orders
+			WHERE created_at BETWEEN '2018-01-01'
+			                     AND '2018-04-01'
+	
+	Extract -- use to filter for exact values being required
+		EX: What orders were created from January through the end of March of this year?
+			SELECT * FROM orders
+			WHERE EXTRACT( year from created_at) = 2018 
+			  AND EXTRACT(month from created_at) IN (1,2,3)
+
+	
+	now()  -- return the current timestamp of the database server
+	Interval -- Manipulate dates by adding or subtracting intervals of dates
+		Ex: interval '1 month', interval 2 days', interval '4 weeks', interval '1 year'
+		
+	Examples:What orders were created in…
+		the last month?   SELECT * FROM orders 
+				  WHERE created_at >= now() - interval '1 month'
+				  
+		the last year?    SELECT * FROM orders
+			 	  WHERE created_at >= now() - interval '1 year'
+				  
+		the last 45 days? SELECT * FROM orders
+				  WHERE created_at >= now() - interval '45 days'
+		
+		SELECT * FROM orders 
+		WHERE created_at >= (now() - interval '1 month')
+
+
+****************************************************************************************************************************************
+****************************************************************************************************************************************
+************************                                      DAY 2                                             ************************
+****************************************************************************************************************************************
+****************************************************************************************************************************************
+
+
+********************************************************************************************************
+********                                    Set Operators                                       ********
+********************************************************************************************************
+Union - return the unique set of rows unioned together. Columns of results being united must match
+Example: 
+	SELECT product_id from order_products
+	UNION
+	SELECT product_id from cart_products
+
+Intersect - return the unique set of rows in the primary results AND in the secondary results
+Example:  get products that are currently in a cart and have been ordered 
+	SELECT product_id  from order_products
+	INTERSECT
+	SELECT product_id from cart_products
+
+Except - return the unique set of rows in the primary results NOT in the secondary results
+Example: products not currently in any carts
+	SELECT id as product_id FROM products
+	EXCEPT
+	SELECT product_id FROM cart_products
+
+
+********************************************************************************************************
+********                                       Joins                                            ********
+********************************************************************************************************
+Joins will align the values of two tables to form a single set of results with columns from both tables. 
+Using a join requires giving it a clause to use to define how it will pull the data together
+
+Joining  - There are two ways to give join the clause: using ON, and using WHERE
+	Format: ON - JOIN <table> ON <Join clause>
+	             JOIN <table2> ON <join clause2>
+	     WHERE - JOIN <table>, <table2> ... WHERE <join Clause> AND <join clause2>
+	EXAMPLES: 
+		SELECT * FROM products p
+		JOIN product_types pt ON pt.id = p.product_type_id   -- define that we want results aligned on product_type for the product
+
+		SELECT * FROM products p
+		JOIN product_types pt 
+		WHERE pt.id = p.product_type_id    -- define that we want results aligned on product_type for the product
+
+	Inner Join - return rows from both tables where the joined values match on the clause given, JOIN without other indicators is by default an Inner join
+	Note: join will by default be an INNER join
+	Example: 
+		SELECT distinct order_products.product_id 
+		FROM order_products
+		JOIN cart_products ON cart_products.product_id = order_products.product_id
+		
+		--Identical to above
+		SELECT distinct order_products.product_id 
+		FROM order_products
+		INNER JOIN cart_products on cart_products.product_id = order_products.product_id
+		
+		--additional example
+		SELECT * FROM products p
+		INNER JOIN product_types pt ON pt.id = p.product_type_id   -- define that we want results aligned on product_type for the product
+
+	Outer join - return all rows from the primary table, fill in all values for secondary table that don’t match the primary with null values (otherwise same as inner join)
+		Left outer join will select the table that is first declared as the primary table
+		Right outer join will select the table being joined to the first declared table as the primary table
+		Example: --this will pull all rows from products and fill in cart_product values for those that don’t match
+			SELECT * FROM products p
+			LEFT OUTER JOIN cart_products cp on cp.product_id = p.id
+		Example: This will pull all rows from 
+	
+		full outer join - return all rows from all tables and fill in any unmatched rows with
+		Example: 
+			SELECT * FROM orders o
+			FULL OUTER JOIN users on o.user_id = u.id
+			
+			
+********************************************************************************************************
+********                                    Table Aliasing                                      ********
+********************************************************************************************************
+	SELECT distinct order_products.product_id 
+	FROM order_products
+	JOIN cart_products on cart_products.product_id = order_products.product_id
+	
+	-- equivalent to above, refer to order_products as op, cart_products as cp
+	SELECT op.product_id 
+	FROM order_products op
+	JOIN cart_products cp on cp.product_id = op.product_id
+
+	
+********************************************************************************************************
+********                                    Table Creation                                      ********
+********************************************************************************************************
+Create table based on a query
+	Creating tables: SELECT ... INTO and CREATE TABLE AS ... 
+	Create a table that will remain in the database based on a query
+
+	Example: Creating an addresses table 
+		SELECT address INTO addresses FROM users;
+		CREATE TABLE addresses AS SELECT address FROM users;
+
+Create Table 
+	Format: CREATE TABLE <tablename> (<col name> <col type>, 
+					  <col name 2> <col type 2>,... )
+	
+	CREATE TABLE special_partner_products
+	(id integer,
+	partner_name text,
+	product_name text,
+	product_cost decimal,
+	product_purchase_date date,
+	sponsored_user_id integer
+	);
+	
+	select * from special_partner_products;
+
